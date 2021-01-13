@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
-class AddTask extends StatelessWidget {
+class AddTaskScreen extends StatelessWidget {
+  final Function addTaskCallback;
+
+  AddTaskScreen(this.addTaskCallback);
+
   @override
   Widget build(BuildContext context) {
+    String newTaskTitle;
+
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -29,13 +35,16 @@ class AddTask extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
                 autofocus: true,
+                onChanged: (newValue){
+                  newTaskTitle = newValue;
+                },
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   FlatButton(
                     onPressed: () {
-
+                      addTaskCallback(newTaskTitle);
                     },
                     child: Text('Add',
                       style: TextStyle(
@@ -53,4 +62,5 @@ class AddTask extends StatelessWidget {
       ),
     );
   }
+
 }

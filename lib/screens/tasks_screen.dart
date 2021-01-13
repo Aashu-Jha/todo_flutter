@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:todo_flutter/models/task_data.dart';
 import '../widgets/tasks_list.dart';
 import 'add_task_screen.dart';
+import 'package:provider/provider.dart';
 
 class TasksScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(context: context, builder: (context) => AddTask());
-        },
         backgroundColor: Colors.lightBlue[500],
         child: Icon(Icons.add),
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (context) => AddTaskScreen(
+                      (newTitle) {
+                        // setState(() {
+                        //   tasks.add(Task(name: newTitle));
+                        // });
+                        Navigator.pop(context);
+            }),
+          );
+        }, //onPressed
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,14 +45,14 @@ class TasksScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20.0,),
-                Text('ToDo List',
+                Text('TODO List',
                   style: TextStyle(
                     fontSize: 45.0,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
                   ),
                 ),
-                Text('ToDo List',
+                Text('${Provider.of<TaskData>(context).taskCount} Tasks',
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.w400,
